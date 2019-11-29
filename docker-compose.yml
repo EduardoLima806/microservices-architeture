@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  eureka-server:
+    build: eureka-server/.
+    ports:
+    - "8761:8761"
+  zuul-server:
+    build: zuul-server/.
+    ports:
+    - "8762:8762"
+    links:
+    - "eureka-server"
+  greeting-service:
+    build: greeting-service/.
+    ports:
+    - "8081:8081"
+    links:
+    - "eureka-server"
+    environment:
+    - instance_no=1
+  greeting-service2:
+    build: greeting-service/.
+    ports:
+    - "8082:8082"
+    links:
+    - "eureka-server"
+    environment:
+    - SERVER_PORT=8082
+    - instance_no=2
+  user-greeting-service:
+    build: user-greeting-service/.
+    ports:
+    - "9090:9090"
+    links:
+    - "eureka-server"

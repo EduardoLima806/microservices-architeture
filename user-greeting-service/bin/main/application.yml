@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: user-greeting-service
+
+server:
+  port: 9090
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+
+app:
+  greetingService:
+    serviceId: greeting-service
+    endpoint:
+      greeting: /greeting
+
+greeting-service:
+  ribbon:
+    eureka:
+      enabled: true
+    ServerListRefreshInterval: 15000
